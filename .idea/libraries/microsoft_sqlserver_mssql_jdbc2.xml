@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="microsoft.sqlserver.mssql.jdbc1" type="repository">
+  <library name="microsoft.sqlserver.mssql.jdbc2" type="repository">
     <properties maven-id="com.microsoft.sqlserver:mssql-jdbc:12.1.0.jre11-preview" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/mssql-jdbc-12.1.0.jre11-preview.jar!/" />

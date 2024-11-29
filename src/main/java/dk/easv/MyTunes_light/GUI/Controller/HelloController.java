@@ -1,4 +1,4 @@
-package dk.easv.spotify_clone.GUI.Controller;
+package dk.easv.MyTunes_light.GUI.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
