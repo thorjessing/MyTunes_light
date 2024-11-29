@@ -1,4 +1,4 @@
-package dk.easv.spotify_clone;
+package dk.easv.MyTunes_light;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

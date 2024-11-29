@@ -1,4 +1,4 @@
-package dk.easv.spotify_clone.DAL;
+package dk.easv.MyTunes_light.DAL;
 
 public interface ISongDataAccess {
 
