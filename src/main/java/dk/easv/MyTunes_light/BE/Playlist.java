@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
+    private int id;
     private String name;
     private List<Song> songs;
 
@@ -11,6 +12,19 @@ public class Playlist {
         this.name = name;
         this.songs = new ArrayList<Song>();
     }
+
+    public Playlist(int id, String name) {
+        this.id = id;
+        this.name = name;
+        this.songs = new ArrayList<Song>();
+    }
+
+    public Playlist(int id, String name, ArrayList<Song> songs) {
+        this.id = id;
+        this.name = name;
+        this.songs = songs;
+    }
+
 
     public Playlist(String name, List<Song> songs) {
         this.name = name;

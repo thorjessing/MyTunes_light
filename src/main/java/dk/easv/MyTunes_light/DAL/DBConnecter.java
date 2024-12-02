@@ -10,10 +10,10 @@ import java.util.Properties;
 
 public class DBConnecter {
         //designate file path for db settings
-        private static final String PROPERTIES_FILE = "Config/database.settings";
+        private static final String PROPERTIES_FILE = "Config/config.settings";
         private SQLServerDataSource dataSource;
 
-        private DBConnecter() throws IOException {
+        public DBConnecter() throws IOException {
             //load db settings to properties
             Properties props = new Properties();
             props.load(new FileInputStream(PROPERTIES_FILE));
@@ -28,6 +28,7 @@ public class DBConnecter {
             dataSource.setTrustServerCertificate(true);
 
         }
+
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }
