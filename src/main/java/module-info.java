@@ -4,6 +4,7 @@ module com.example.MyTunes_light {
     requires com.microsoft.sqlserver.jdbc;
     requires java.sql;
     requires java.naming;
+    requires javafx.media;
 
 
     opens dk.easv.MyTunes_light to javafx.fxml;
