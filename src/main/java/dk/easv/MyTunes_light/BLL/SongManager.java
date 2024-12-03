@@ -6,7 +6,7 @@ import dk.easv.MyTunes_light.DAL.dao.SongDAO;
 
 import java.util.List;
 
-public class SongManager {
+public class    SongManager {
     private final ISongDAO songDAO;
 
     public SongManager() throws Exception {

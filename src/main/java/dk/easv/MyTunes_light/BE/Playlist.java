@@ -25,7 +25,6 @@ public class Playlist {
         this.songs = songs;
     }
 
-
     public Playlist(String name, List<Song> songs) {
         this.name = name;
         this.songs = songs;
@@ -45,5 +44,17 @@ public class Playlist {
 
     public List<Song> getSongs() {
         return this.songs;
+    }
+
+    public int getSongCount() {
+        return this.songs.size();
+    }
+
+    public String getDuration() {
+        int total = 0;
+        for (Song song : songs)
+            total += song.getDuration();
+
+        return String.format("%02dm %02ds", total / 60, total % 60);
     }
 }

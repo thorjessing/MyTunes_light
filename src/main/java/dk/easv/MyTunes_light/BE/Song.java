@@ -35,6 +35,13 @@ public class Song {
         return String.format("%d:%02d", m, remainingSec);
     }
 
+    public String getLength() {
+        int m = duration / 60;
+        int remainingSec = duration % 60;
+
+        return String.format("%dm %02ds", m, remainingSec);
+    }
+
     public int getId() {
         return this.id;
     }
