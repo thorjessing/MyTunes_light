@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="450" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.MyTunes_light.GUI.Controller.MyTunesController">
+<VBox prefHeight="450" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.MyTunes_light.GUI.Controller.MyTunesController">
    <children>
       <AnchorPane prefHeight="102.0" prefWidth="640.0">
          <children>
@@ -38,22 +38,22 @@
                   <Label text="Playlist" />
                   <TableView fx:id="tblViewPlaylist" prefHeight="358.0" prefWidth="206.0">
                      <columns>
-                        <TableColumn prefWidth="84.0" text="Name" />
-                        <TableColumn prefWidth="41.0" text="Songs" />
-                        <TableColumn prefWidth="100.0" text="Duration" />
+                        <TableColumn fx:id="playlistNameCol" prefWidth="84.0" text="Name" />
+                        <TableColumn fx:id="playlistSongsCol" prefWidth="41.0" text="Songs" />
+                        <TableColumn fx:id="playlistDurationCol" prefWidth="100.0" text="Duration" />
                      </columns>
                   </TableView>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="PL_NEWBTN" mnemonicParsing="false" text="New...">
+                        <Button fx:id="PL_NEWBTN" mnemonicParsing="false" onAction="#handleCreatePlaylist" text="New...">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="PL_EDITBTN" mnemonicParsing="false" text="Edit...">
+                        <Button fx:id="PL_EDITBTN" mnemonicParsing="false" onAction="#handleAddSongToPlaylist" text="Edit...">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="PL_DELBTN" mnemonicParsing="false" text="Delete">
+                        <Button fx:id="PL_DELBTN" mnemonicParsing="false" onAction="#handleRemoveSongFromPlaylist" text="Delete">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>
@@ -64,7 +64,7 @@
             <VBox prefHeight="370.0" prefWidth="174.0">
                <children>
                   <Label text="Songs on Playlist" />
-                  <ListView fx:id="lstViewPlaylist" prefHeight="359.0" prefWidth="174.0" />
+                  <ListView fx:id="listViewPlaylistSongs" prefHeight="359.0" prefWidth="174.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="MoveUpBTN" mnemonicParsing="false" text="^">
