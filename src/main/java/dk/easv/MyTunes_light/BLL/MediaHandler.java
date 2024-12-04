@@ -69,6 +69,16 @@ public class MediaHandler {
             currentSong.seek(new Duration(0));
     }
 
+    public String getTimeFromDouble(double val) {
+        //input millisekunder
+        double seconds = val;
+
+        double secs = seconds % 60;
+        double minutes = (seconds / 60) % 60;
+
+        return String.format("%d:%02d", (int)minutes, (int)secs);
+    }
+
     public MediaPlayer getCurrentSong() {
         return currentSong;
     }

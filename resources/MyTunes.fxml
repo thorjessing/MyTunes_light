@@ -24,11 +24,14 @@
             <Button fx:id="SkipBTN" layoutX="144.0" layoutY="25.0" mnemonicParsing="false" text="Next" />
             <Slider fx:id="slidrVol" layoutX="57.0" layoutY="57.0" />
             <Button fx:id="MuteBTN" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" text="Lyd" />
-            <Label layoutX="351.0" layoutY="43.0" text="Now playing" />
+            <Label layoutX="255.0" layoutY="16.0" prefHeight="0.0" prefWidth="68.0" text="Now playing" />
             <TextField layoutX="691.0" layoutY="24.0" prefHeight="26.0" prefWidth="84.0" />
             <Button fx:id="SearchBTN" layoutX="775.0" layoutY="24.0" mnemonicParsing="false" text="Search" />
-            <Label layoutX="663.0" layoutY="29.0" text="Filter" />
-            <Label fx:id="isNowPlaying" layoutX="424.0" layoutY="43.0" />
+            <Label layoutX="663.0" layoutY="46.0" prefHeight="0.0" prefWidth="27.0" text="Filter" />
+            <Slider fx:id="sliderTime" layoutX="300.0" layoutY="39.0" prefHeight="16.0" prefWidth="242.0" />
+            <Label fx:id="lblCurrentDuration" layoutX="259.0" layoutY="38.0" text="Label" />
+            <Label fx:id="lblMaxDuration" layoutX="549.0" layoutY="38.0" text="Label" />
+            <Label fx:id="lblSongName" layoutX="334.0" layoutY="16.0" />
          </children>
       </AnchorPane>
       <HBox prefHeight="490.0" prefWidth="862.0">
@@ -126,8 +129,4 @@
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
-   <HBox.margin>
-      <Insets />
-   </HBox.margin>
-</VBox>
+   </pa

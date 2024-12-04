@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.*;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +57,19 @@ public class MyTunesController implements Initializable {
     private Button PauseBTN;
     @FXML
     private Slider slidrVol;
+    @FXML
+    private Slider sliderTime;
+    @FXML
+    private Label lblCurrentDuration;
+    @FXML
+    private Label lblMaxDuration;
+
+    private boolean wasDragged;
+    private boolean wasClicked;
+
+    private int amountMoved;
+    @FXML
+    private Label lblSongName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -154,13 +168,14 @@ public class MyTunesController implements Initializable {
     }
 
     private void volume() {
-        MediaPlayer currentSong = getSongMediaPlayer();
         slidrVol.setMin(0);
         slidrVol.setMax(100);
 
         slidrVol.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                MediaPlayer currentSong = getSongMediaPlayer();
+
                 if (currentSong == null) return;
 
                 currentSong.setVolume(newValue.doubleValue() / 100);
@@ -168,15 +183,94 @@ public class MyTunesController implements Initializable {
         });
     }
 
+    public void playNextSong() {
+        // Få den aktuelle valgte indeks
+        int currentIndex = listViewPlaylistSongs.getSelectionModel().getSelectedIndex();
+
+// Beregn det næste indeks
+        int nextSongIndex = currentIndex + 1;
+        int size = listViewPlaylistSongs.getItems().size();
+
+// Kontroller, at det næste indeks er inden for grænserne
+        if (nextSongIndex < 0 || nextSongIndex >= size) {
+            return; // Undgå at gå uden for listen
+        }
+
+// Få den næste sang fra listen
+        Song nextSong = listViewPlaylistSongs.getItems().get(nextSongIndex);
+
+// Marker den næste sang som valgt i ListView
+        listViewPlaylistSongs.getSelectionModel().select(nextSong);
+
+        playSong(nextSong.getMediaPlayer());
+    }
+
     @FXML
     private void playSongBtn(ActionEvent actionEvent) {
-        MediaPlayer currentSong = getSongMediaPlayer();
+        playSong(getSongMediaPlayer());
+    }
+
+    private void playSong(MediaPlayer currentSong) {
+        Song song = listViewPlaylistSongs.getSelectionModel().getSelectedItem();
+        if (currentSong == null) return;
+
         currentSong.setVolume(slidrVol.getValue() / 100);
 
         mediaHandler.playSong(currentSong, false);
 
         boolean isPlaying = currentSong.getStatus().equals(MediaPlayer.Status.PLAYING);
         PauseBTN.setText(isPlaying ? ">" : "II");
+
+        lblSongName.setText(song.getName() + " - " + song.getName());
+
+        updatePlayerControls(currentSong, song);
+
+    }
+
+    private void updatePlayerControls(MediaPlayer mediaPlayer, Song song) {
+        double songLength = mediaPlayer.getTotalDuration().toSeconds();
+        sliderTime.setMax(songLength);
+        lblMaxDuration.setText(song.getLengthString());
+
+        //updateVolumeControl(mediaPlayer);
+
+        // User interaction (single click or touch)
+        sliderTime.valueChangingProperty().addListener((observable, oldValue, isChanging) -> {
+            wasDragged = isChanging;
+            if (!wasDragged) {
+                mediaPlayer.seek(new Duration(sliderTime.getValue() * 1000));
+                lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(sliderTime.getValue()));
+            }
+        });
+
+        // User dragging the slider
+        sliderTime.valueProperty().addListener((observable, oldTime, newTime) -> {
+            if (wasDragged && sliderTime.isValueChanging()) {
+                lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(newTime.doubleValue()));
+            }
+
+            // Check if the slider was clicked or dragged
+            wasClicked = Math.abs(oldTime.doubleValue() - newTime.doubleValue()) > 10;
+
+            // This causes CMTimeMakeWithSeconds warning... not sure why
+            if (!sliderTime.isValueChanging() && !wasDragged && wasClicked)
+                mediaPlayer.seek(new Duration(newTime.doubleValue() * 1000));
+        });
+
+        // Listener for mediaplayer
+        mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
+            if (wasDragged && wasClicked)
+                return;
+
+            // Check if it's time to play the next song
+            boolean playNextSong = sliderTime.getMax() - 1 < newTime.toSeconds();
+            if (playNextSong)
+                playNextSong();
+
+            // Update UI
+            lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(newTime.toSeconds()));
+            sliderTime.setValue(newTime.toSeconds());
+        });
     }
 }
 
