@@ -40,7 +40,7 @@ public class SongDAO implements ISongDAO {
                 int releaseYear = rs.getInt("ReleaseYear");
                 String name = rs.getString("name");
 
-                songs.add(new Song(id, name, artist, path, genre, duration, releaseYear));
+                songs.add(new Song(id, name, artist, path, "album", genre, duration, releaseYear));
             }
 
             return songs;

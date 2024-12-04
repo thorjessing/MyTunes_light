@@ -1,5 +1,10 @@
 package dk.easv.MyTunes_light.BE;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
+
 public class Song {
     private int id;
     private String name;
@@ -9,23 +14,40 @@ public class Song {
     private int duration;
     private int year;
 
-    public Song(int id, String name, String artist, String album, String genre, int duration, int year) {
+    private String path;
+
+    private MediaPlayer mediaPlayer;
+
+    public Song(int id, String name, String artist, String path, String album, String genre, int duration, int year) {
         this.id = id;
         this.name = name;
         this.artist = artist;
+        this.path = path;
         this.album = album;
         this.genre = genre;
         this.duration = duration;
         this.year = year;
+
+        createMediaPlayer(new File(path));
     }
 
-    public Song(String name, String artist, String album, String genre, int duration, int year) {
+    public Song(String name, String artist, String path, String album, String genre, int duration, int year) {
         this.name = name;
         this.artist = artist;
+        this.path = path;
         this.album = album;
         this.genre = genre;
         this.duration = duration;
         this.year = year;
+
+        createMediaPlayer(new File(path));
+    }
+
+    private void createMediaPlayer(File f) {
+        if(f.exists() && !f.isDirectory())
+            this.mediaPlayer = new MediaPlayer(new Media(new File(path).toURI().toString()));
+        else
+            this.name = "[INVALID] " + this.name;
     }
 
     public String getLengthString() {

@@ -134,6 +134,10 @@ public class MyTunesController implements Initializable {
             playlistModel.removeSongFromPlaylist(selectedPlaylist, selectedSong);
         }
     }
+
+    private void volume() {
+
+    }
 }
 
 
