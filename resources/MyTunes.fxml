@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="102.0" prefWidth="640.0">
          <children>
-            <Button fx:id="PauseBTN" layoutX="97.0" layoutY="25.0" mnemonicParsing="false" text="II">
+            <Button fx:id="PauseBTN" layoutX="97.0" layoutY="25.0" mnemonicParsing="false" onAction="#playSongBtn" text="&gt;">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Button>

@@ -2,15 +2,20 @@ package dk.easv.MyTunes_light.GUI.Controller;
 
 import dk.easv.MyTunes_light.BE.Playlist;
 import dk.easv.MyTunes_light.BE.Song;
+import dk.easv.MyTunes_light.BLL.MediaHandler;
 import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes_light.GUI.Model.SongModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.*;
+import javafx.scene.media.MediaPlayer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +36,7 @@ public class MyTunesController implements Initializable {
     @FXML
     private TableView<Playlist> tblViewPlaylist; // Korrekt Playlist TableView
 
-
+    private MediaHandler mediaHandler;
 
     private SongModel songModel;
     private PlaylistModel playlistModel;
@@ -47,6 +52,10 @@ public class MyTunesController implements Initializable {
     private TableColumn<Playlist, String> playlistDurationCol;
     @FXML
     private ListView<Song> listViewPlaylistSongs;
+    @FXML
+    private Button PauseBTN;
+    @FXML
+    private Slider slidrVol;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,11 +70,13 @@ public class MyTunesController implements Initializable {
 
         populateSongs();
         populatePlaylists();
+        volume();
     }
 
     public MyTunesController() throws Exception {
         songModel = new SongModel();
         playlistModel = new PlaylistModel(); // Tilføjet initialisering
+        mediaHandler = new MediaHandler();
     }
 
     //definere kolonner typer og smider data i songs
@@ -135,8 +146,37 @@ public class MyTunesController implements Initializable {
         }
     }
 
-    private void volume() {
+    private MediaPlayer getSongMediaPlayer() {
+        Song song = listViewPlaylistSongs.getSelectionModel().getSelectedItem();
+        if (song == null) return null;
 
+        return song.getMediaPlayer();
+    }
+
+    private void volume() {
+        MediaPlayer currentSong = getSongMediaPlayer();
+        slidrVol.setMin(0);
+        slidrVol.setMax(100);
+
+        slidrVol.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (currentSong == null) return;
+
+                currentSong.setVolume(newValue.doubleValue() / 100);
+            }
+        });
+    }
+
+    @FXML
+    private void playSongBtn(ActionEvent actionEvent) {
+        MediaPlayer currentSong = getSongMediaPlayer();
+        currentSong.setVolume(slidrVol.getValue() / 100);
+
+        mediaHandler.playSong(currentSong, false);
+
+        boolean isPlaying = currentSong.getStatus().equals(MediaPlayer.Status.PLAYING);
+        PauseBTN.setText(isPlaying ? ">" : "II");
     }
 }
 

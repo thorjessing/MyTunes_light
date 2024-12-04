@@ -28,7 +28,7 @@ public class Song {
         this.duration = duration;
         this.year = year;
 
-        createMediaPlayer(new File(path));
+        createMediaPlayer(new File("songs/" + path));
     }
 
     public Song(String name, String artist, String path, String album, String genre, int duration, int year) {
@@ -40,14 +40,23 @@ public class Song {
         this.duration = duration;
         this.year = year;
 
-        createMediaPlayer(new File(path));
+        createMediaPlayer(new File("songs/" + path));
     }
 
     private void createMediaPlayer(File f) {
+        System.out.println(f.getAbsolutePath());
         if(f.exists() && !f.isDirectory())
-            this.mediaPlayer = new MediaPlayer(new Media(new File(path).toURI().toString()));
+            this.mediaPlayer = new MediaPlayer(new Media(new File("songs/" + path).toURI().toString()));
         else
             this.name = "[INVALID] " + this.name;
+    }
+
+    public boolean isSongReady() {
+        return mediaPlayer.getStatus().equals(MediaPlayer.Status.READY);
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return this.mediaPlayer;
     }
 
     public String getLengthString() {

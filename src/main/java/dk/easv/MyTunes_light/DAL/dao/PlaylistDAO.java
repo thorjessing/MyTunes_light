@@ -40,7 +40,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return playlists;
         } catch (Exception e) {
-            throw new Exception("Kunne ikke få fat i alle playlister fra databasen");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -57,14 +57,13 @@ public class PlaylistDAO implements IPlaylistDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-
                 ArrayList<Song> songs = this.getAllPlaylistSongs(id);
                 playlists.add(new Playlist(id, name, songs));
             }
 
             return playlists;
         } catch (Exception e) {
-            throw new Exception("Kunne ikke få fat i alle playlister fra databasen");
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -102,7 +101,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return songs;
         } catch (Exception e) {
-            throw new Exception("Kunne ikke få fat i alle sange fra playlister fra databasen");
+            throw new Exception(e.getMessage());
         }
 
     }
