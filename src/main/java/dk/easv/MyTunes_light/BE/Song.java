@@ -44,7 +44,6 @@ public class Song {
     }
 
     private void createMediaPlayer(File f) {
-        System.out.println(f.getAbsolutePath());
         if(f.exists() && !f.isDirectory())
             this.mediaPlayer = new MediaPlayer(new Media(new File("songs/" + path).toURI().toString()));
         else

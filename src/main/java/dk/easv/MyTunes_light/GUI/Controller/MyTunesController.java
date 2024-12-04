@@ -70,6 +70,9 @@ public class MyTunesController implements Initializable {
     private int amountMoved;
     @FXML
     private Label lblSongName;
+    @FXML
+    private TextField txtFieldSeach;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,6 +88,7 @@ public class MyTunesController implements Initializable {
         populateSongs();
         populatePlaylists();
         volume();
+        searchHandler();
     }
 
     public MyTunesController() throws Exception {
@@ -222,7 +226,7 @@ public class MyTunesController implements Initializable {
         boolean isPlaying = currentSong.getStatus().equals(MediaPlayer.Status.PLAYING);
         PauseBTN.setText(isPlaying ? ">" : "II");
 
-        lblSongName.setText(song.getName() + " - " + song.getName());
+        lblSongName.setText(song.getArtist() + " - " + song.getName());
 
         updatePlayerControls(currentSong, song);
 
@@ -282,6 +286,12 @@ public class MyTunesController implements Initializable {
     @FXML
     private void btnPrevSong(ActionEvent actionEvent) {
         playNextSong(false);
+    }
+
+    private void searchHandler() {
+        txtFieldSeach.textProperty().addListener((observable, oldValue, newValue) -> {
+            tblViewSongs.setItems(songModel.searchSong(newValue));
+        });
     }
 }
 

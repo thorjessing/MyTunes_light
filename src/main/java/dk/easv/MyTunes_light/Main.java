@@ -16,23 +16,6 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        PlaylistDAO playlistDAO = new PlaylistDAO();
-
-        for (Playlist p : playlistDAO.getAllPlaylistWithSongs()) {
-            System.out.println("--------- " + p.getName() + " (" + p.getSongs().size() + ") -----------");
-            for (Song song : p.getSongs()) {
-                System.out.println(song.getDuration() + " " + song.getLengthString());
-            }
-        }
-        /*
-        SongDAO songDAO = new SongDAO();
-
-        List<Song> alleSange = songDAO.getAllSongs();
-        System.out.println("Antal sange: " + alleSange.size());
-
-        for (Song song : alleSange)
-            System.out.println(song);*/
     }
 
     public static void main(String[] args) {
