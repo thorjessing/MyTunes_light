@@ -183,23 +183,24 @@ public class MyTunesController implements Initializable {
         });
     }
 
-    public void playNextSong() {
+    public void playNextSong(boolean isNext) {
         // Få den aktuelle valgte indeks
         int currentIndex = listViewPlaylistSongs.getSelectionModel().getSelectedIndex();
 
-// Beregn det næste indeks
-        int nextSongIndex = currentIndex + 1;
+            // Beregn det næste indeks
+        int next = isNext ? 1 : -1;
+        int nextSongIndex = currentIndex + next;
         int size = listViewPlaylistSongs.getItems().size();
 
-// Kontroller, at det næste indeks er inden for grænserne
+        // Kontroller, at det næste indeks er inden for grænserne
         if (nextSongIndex < 0 || nextSongIndex >= size) {
             return; // Undgå at gå uden for listen
         }
 
-// Få den næste sang fra listen
+        // Få den næste sang fra listen
         Song nextSong = listViewPlaylistSongs.getItems().get(nextSongIndex);
 
-// Marker den næste sang som valgt i ListView
+        // Marker den næste sang som valgt i ListView
         listViewPlaylistSongs.getSelectionModel().select(nextSong);
 
         playSong(nextSong.getMediaPlayer());
@@ -265,12 +266,22 @@ public class MyTunesController implements Initializable {
             // Check if it's time to play the next song
             boolean playNextSong = sliderTime.getMax() - 1 < newTime.toSeconds();
             if (playNextSong)
-                playNextSong();
+                playNextSong(true);
 
             // Update UI
             lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(newTime.toSeconds()));
             sliderTime.setValue(newTime.toSeconds());
         });
+    }
+
+    @FXML
+    private void btnPlayNext(ActionEvent actionEvent) {
+        playNextSong(true);
+    }
+
+    @FXML
+    private void btnPrevSong(ActionEvent actionEvent) {
+        playNextSong(false);
     }
 }
 

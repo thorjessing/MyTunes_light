@@ -20,8 +20,8 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin></Button>
-            <Button fx:id="RewindBTN" layoutX="40.0" layoutY="25.0" mnemonicParsing="false" text="Prev" />
-            <Button fx:id="SkipBTN" layoutX="144.0" layoutY="25.0" mnemonicParsing="false" text="Next" />
+            <Button fx:id="RewindBTN" layoutX="40.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnPrevSong" text="Prev" />
+            <Button fx:id="SkipBTN" layoutX="144.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnPlayNext" text="Next" />
             <Slider fx:id="slidrVol" layoutX="57.0" layoutY="57.0" />
             <Button fx:id="MuteBTN" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" text="Lyd" />
             <Label layoutX="255.0" layoutY="16.0" prefHeight="0.0" prefWidth="68.0" text="Now playing" />
