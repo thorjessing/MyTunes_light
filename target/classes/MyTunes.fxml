@@ -101,28 +101,17 @@
                         <TableColumn fx:id="songDurationCol" prefWidth="98.0" text="Duration" />
                      </columns>
                   </TableView>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="SN_NEWBTN" mnemonicParsing="false" text="New...">
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin></Button>
-                        <Button fx:id="SN_EDBTN" mnemonicParsing="false" text="Edit...">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" top="5.0" />
-                           </HBox.margin></Button>
-                        <Button fx:id="SN_DELBTN" mnemonicParsing="false" text="Delete">
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin></Button>
-                        <Button fx:id="CloseBTN" alignment="BOTTOM_LEFT" mnemonicParsing="false" text="Close">
-                           <HBox.margin>
-                              <Insets left="180.0" top="5.0" />
-                           </HBox.margin></Button>
-                     </children>
-                  </HBox>
                </children>
             </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="closeBtn" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#btnCloseWindow" prefHeight="26.0" prefWidth="57.0" text="Close">
+               <HBox.margin>
+                  <Insets left="650.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

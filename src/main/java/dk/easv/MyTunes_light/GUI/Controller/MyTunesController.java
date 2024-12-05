@@ -5,6 +5,7 @@ import dk.easv.MyTunes_light.BE.Song;
 import dk.easv.MyTunes_light.BLL.MediaHandler;
 import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes_light.GUI.Model.SongModel;
+import dk.easv.MyTunes_light.GUI.PopUp.PlaylistCreate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -139,9 +140,8 @@ public class MyTunesController implements Initializable {
 
     @FXML
     private void handleCreatePlaylist() {
-        String playlistName = "New Playlist"; // Prompt kan tilføjes her.
-        Playlist newPlaylist = new Playlist(playlistName);
-        playlistModel.addPlaylist(newPlaylist);
+        PlaylistCreate popup = new PlaylistCreate();
+        popup.showPopup();
     }
 
     @FXML
@@ -292,6 +292,11 @@ public class MyTunesController implements Initializable {
         txtFieldSeach.textProperty().addListener((observable, oldValue, newValue) -> {
             tblViewSongs.setItems(songModel.searchSong(newValue));
         });
+    }
+
+    @FXML
+    private void btnCloseWindow(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }
 

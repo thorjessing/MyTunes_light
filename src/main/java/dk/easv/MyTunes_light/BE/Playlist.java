@@ -57,4 +57,8 @@ public class Playlist {
 
         return String.format("%02dm %02ds", total / 60, total % 60);
     }
+
+    public void setId(int anInt) {
+        this.id = anInt;
+    }
 }

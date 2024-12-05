@@ -7,6 +7,7 @@ import dk.easv.MyTunes_light.DAL.DBConnecter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +105,36 @@ public class PlaylistDAO implements IPlaylistDAO {
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    @Override
+    public Playlist createPlaylist(Playlist playlist) throws Exception {
+        String query = """
+                INSERT INTO Playlist (name)
+                       VALUES(?);
+                """;
+
+        try (Connection conn = dbConnecter.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            // Indsæt værdien for name
+            stmt.setString(1, playlist.getName());
+
+            // Udfør opdateringen
+            int rowsAffected = stmt.executeUpdate();
+
+            // Hent den genererede nøgle
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    // Sæt den genererede ID i Playlist-objektet
+                    playlist.setId(rs.getInt(1)); // Antager, at ID'et er en int
+                }
+            }
+
+            return playlist;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }
 

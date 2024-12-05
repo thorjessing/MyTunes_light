@@ -14,6 +14,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MyTunes.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        primaryStage.setTitle("MyTunes Light");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

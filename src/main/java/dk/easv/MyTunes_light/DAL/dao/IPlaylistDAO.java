@@ -11,4 +11,6 @@ public interface IPlaylistDAO {
     List<Playlist> getAllPlaylistWithSongs() throws Exception;
 
     ArrayList<Song> getAllPlaylistSongs(int playlistId) throws Exception;
+
+    Playlist createPlaylist(Playlist playlist) throws Exception;
 }
