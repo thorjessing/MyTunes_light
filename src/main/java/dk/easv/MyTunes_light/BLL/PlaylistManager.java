@@ -6,6 +6,7 @@ import dk.easv.MyTunes_light.DAL.dao.IPlaylistDAO;
 import dk.easv.MyTunes_light.DAL.dao.ISongDAO;
 import dk.easv.MyTunes_light.DAL.dao.PlaylistDAO;
 import dk.easv.MyTunes_light.DAL.dao.SongDAO;
+import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
 
 import java.util.List;
 
@@ -19,5 +20,9 @@ public class    PlaylistManager {
 
     public List<Playlist> getAllPlaylist() throws Exception {
         return this.playlistDAO.getAllPlaylistWithSongs();
+    }
+
+    public Playlist createPlaylist(Playlist playlist) throws Exception {
+        return this.playlistDAO.createPlaylist(playlist);
     }
 }

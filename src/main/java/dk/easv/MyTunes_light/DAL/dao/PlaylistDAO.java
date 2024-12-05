@@ -117,17 +117,13 @@ public class PlaylistDAO implements IPlaylistDAO {
         try (Connection conn = dbConnecter.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Indsæt værdien for name
             stmt.setString(1, playlist.getName());
 
-            // Udfør opdateringen
             int rowsAffected = stmt.executeUpdate();
 
-            // Hent den genererede nøgle
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    // Sæt den genererede ID i Playlist-objektet
-                    playlist.setId(rs.getInt(1)); // Antager, at ID'et er en int
+                    playlist.setId(rs.getInt(1));
                 }
             }
 

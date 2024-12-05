@@ -5,6 +5,7 @@ import dk.easv.MyTunes_light.BE.Song;
 import dk.easv.MyTunes_light.BLL.MediaHandler;
 import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes_light.GUI.Model.SongModel;
+import dk.easv.MyTunes_light.GUI.ModelHandler;
 import dk.easv.MyTunes_light.GUI.PopUp.PlaylistCreate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -93,8 +94,8 @@ public class MyTunesController implements Initializable {
     }
 
     public MyTunesController() throws Exception {
-        songModel = new SongModel();
-        playlistModel = new PlaylistModel(); // Tilføjet initialisering
+        songModel = ModelHandler.getInstance().getSongModel();
+        playlistModel = ModelHandler.getInstance().getPlaylistModel(); // Tilføjet initialisering
         mediaHandler = new MediaHandler();
     }
 

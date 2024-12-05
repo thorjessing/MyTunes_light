@@ -21,6 +21,10 @@ public class PlaylistModel {
         playlists.addAll(playlistManager.getAllPlaylist());
     }
 
+    public Playlist createPlaylist(Playlist playlist) throws Exception {
+        return playlistManager.createPlaylist(playlist);
+    }
+
     public ObservableList<Playlist> getPlaylists() {
         return playlists;
     }
