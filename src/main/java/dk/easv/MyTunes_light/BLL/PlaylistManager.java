@@ -25,4 +25,8 @@ public class    PlaylistManager {
     public Playlist createPlaylist(Playlist playlist) throws Exception {
         return this.playlistDAO.createPlaylist(playlist);
     }
+
+    public boolean deletePlaylist(Playlist playlist) throws Exception {
+        return this.playlistDAO.deletePlaylist(playlist);
+    }
 }

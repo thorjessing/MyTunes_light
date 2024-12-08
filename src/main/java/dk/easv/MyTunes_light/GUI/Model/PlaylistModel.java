@@ -33,8 +33,11 @@ public class PlaylistModel {
         playlists.add(playlist);
     }
 
-    public void removePlaylist(Playlist playlist) {
-        playlists.remove(playlist);
+    public void removePlaylist(Playlist playlist) throws Exception {
+        boolean deletedb = playlistManager.deletePlaylist(playlist);
+
+        if (deletedb)
+            playlists.remove(playlist);
     }
 
     public void addSongToPlaylist(Playlist playlist, Song song) {
@@ -44,4 +47,5 @@ public class PlaylistModel {
     public void removeSongFromPlaylist(Playlist playlist, Song song) {
         playlist.removeSong(song);
     }
+
 }

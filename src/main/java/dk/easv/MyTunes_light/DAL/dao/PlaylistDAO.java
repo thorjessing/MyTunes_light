@@ -132,5 +132,23 @@ public class PlaylistDAO implements IPlaylistDAO {
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public boolean deletePlaylist(Playlist playlist) throws Exception {
+        String query = """
+                DELETE FROM Playlist WHERE id = ?
+                """;
+
+        try (Connection conn = dbConnecter.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, playlist.getId());
+            stmt.executeUpdate();
+
+            return true;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }
 

@@ -156,12 +156,15 @@ public class MyTunesController implements Initializable {
     }
 
     @FXML
-    private void handleRemoveSongFromPlaylist() {
-        Song selectedSong = tblViewSongs.getSelectionModel().getSelectedItem();
+    private void btnRemovePlaylist() {
         Playlist selectedPlaylist = tblViewPlaylist.getSelectionModel().getSelectedItem();
 
-        if (selectedSong != null && selectedPlaylist != null) {
-            playlistModel.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+        if (selectedPlaylist != null) {
+            try {
+                playlistModel.removePlaylist(selectedPlaylist);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -189,23 +192,17 @@ public class MyTunesController implements Initializable {
     }
 
     public void playNextSong(boolean isNext) {
-        // Få den aktuelle valgte indeks
         int currentIndex = listViewPlaylistSongs.getSelectionModel().getSelectedIndex();
 
-            // Beregn det næste indeks
         int next = isNext ? 1 : -1;
         int nextSongIndex = currentIndex + next;
         int size = listViewPlaylistSongs.getItems().size();
 
-        // Kontroller, at det næste indeks er inden for grænserne
-        if (nextSongIndex < 0 || nextSongIndex >= size) {
-            return; // Undgå at gå uden for listen
-        }
+        if (nextSongIndex < 0 || nextSongIndex >= size)
+            return;
 
-        // Få den næste sang fra listen
         Song nextSong = listViewPlaylistSongs.getItems().get(nextSongIndex);
 
-        // Marker den næste sang som valgt i ListView
         listViewPlaylistSongs.getSelectionModel().select(nextSong);
 
         playSong(nextSong.getMediaPlayer());
@@ -230,7 +227,6 @@ public class MyTunesController implements Initializable {
         lblSongName.setText(song.getArtist() + " - " + song.getName());
 
         updatePlayerControls(currentSong, song);
-
     }
 
     private void updatePlayerControls(MediaPlayer mediaPlayer, Song song) {

@@ -61,4 +61,8 @@ public class Playlist {
     public void setId(int anInt) {
         this.id = anInt;
     }
+
+    public int getId() {
+        return id;
+    }
 }
