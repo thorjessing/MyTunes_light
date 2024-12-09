@@ -41,7 +41,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return playlists;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Kunne ikke få fat i alle playlister fra databasen");
         }
     }
 
@@ -64,7 +64,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return playlists;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Kunne ikke få fat i alle playlister med sange fra databasen");
         }
     }
 
@@ -102,7 +102,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return songs;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Kunne få fat i alle sange fra playlist Id: " + playlistId + " fra databasen");
         }
 
     }
@@ -129,7 +129,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return playlist;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Kunne ikke oprette playlist i databas");
         }
     }
 
@@ -147,7 +147,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
             return true;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Kunne ikke slette playlist fra database");
         }
     }
 }
